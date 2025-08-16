@@ -58,38 +58,26 @@ public class PlayerHealthBarRenderer {
 
         float health = p.getHealth();
         float max = p.getMaxHealth();
+        float absorption = p.getAbsorptionAmount();
         if (max <= 0f) max = 20f;
+
+        // Text showing real health + absorption
+        String text = (int)Math.ceil(health + absorption) + "/" + (int)max;
+
+        // Calculate ratio relative to total health (health + absorption)
+        float totalHealth = health + absorption;
+        float ratioBase = totalHealth > 0 ? health / totalHealth : 0;
+        float ratioAbsorb = totalHealth > 0 ? absorption / totalHealth : 0;
         float ratio = Math.max(0f, Math.min(1f, health / max));
 
-        // Bar color: green -> yellow -> red
-        int barColor = lerpColor(0xFF00FF00, 0xFFFFFF00, 1f - Math.min(ratio * 2f, 1f));
-        if (ratio < 0.5f) {
-            float t = (0.5f - ratio) / 0.5f;
-            barColor = lerpColor(0xFFFFFF00, 0xFFFF0000, t);
-        }
-
-        String text = (int)Math.ceil(health) + "/" + (int)max;
-
         GlStateManager.pushMatrix();
-
-        // Translate to player's head
         GlStateManager.translate(x, y + Y_OFFSET, z);
-
-        // Rotate to face the camera (health bar + text rotate together)
         GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0f, 1f, 0f);
-
-        // Apply local offset so X_OFFSET is not affected by camera rotation
         GlStateManager.translate(X_OFFSET, 0, Z_OFFSET);
-
-        // In first-person view, additionally rotate along X axis
         if (mc.gameSettings.thirdPersonView == 0) {
             GlStateManager.rotate(mc.getRenderManager().playerViewX, 1f, 0f, 0f);
         }
-
-        // Scale
         GlStateManager.scale(SCALE, SCALE, SCALE);
-
-        // Render on top
         GlStateManager.disableDepth();
         GlStateManager.disableLighting();
         GlStateManager.enableBlend();
@@ -98,28 +86,47 @@ public class PlayerHealthBarRenderer {
         float h = BAR_HEIGHT;
         int bg = 0xAA000000;
 
-        if (VERTICAL) {
-            // Background
-            drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, h, bg);
-            // Health foreground (top-down)
-            float filled = h * ratio;
-            drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, filled, barColor | 0xFF000000);
-        } else {
-            drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, h, bg);
-            float filled = w * ratio;
-            drawRect(-w / 2 + (w - filled), -fr.FONT_HEIGHT - BAR_MARGIN - h, filled, h, barColor | 0xFF000000);
+        // Base color for health bar (green → yellow → red)
+        int barColorBase = lerpColor(0xFF00FF00, 0xFFFFFF00, 1f - Math.min(health / max * 2f, 1f));
+        if (health / max < 0.5f) {
+            float t = (0.5f - health / max) / 0.5f;
+            barColorBase = lerpColor(0xFFFFFF00, 0xFFFF0000, t);
         }
 
-        // Text outline, rotate local matrix 180° independently
-        int textWidth = fr.getStringWidth(text);
-        int tx = -textWidth / 2;
-        int ty = -fr.FONT_HEIGHT;
+        drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, h, bg);
+        if (VERTICAL) {
+            if (absorption > 0f) {
+                float filledBase = h * ratioBase;
+                float filledAbsorb = h * ratioAbsorb;
+                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, filledBase, barColorBase | 0xFF000000);
+                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h + filledBase, w, filledAbsorb, 0xFFFFD700);
+            }
+            else {
+                float filled = h * ratio;
+                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, filled, barColorBase | 0xFF000000);
+            }
+        } else {
+            if (absorption > 0f) {
+                float filledBase = w * ratioBase;
+                float filledAbsorb = w * ratioAbsorb;
+                drawRect(-w / 2 + (w - filledBase), -fr.FONT_HEIGHT - BAR_MARGIN - h, filledBase, h, barColorBase | 0xFF000000);
+                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, filledAbsorb, h, 0xFFFFD700);
+            }
+            else {
+                float filled = w * ratio;
+                drawRect(-w / 2 + (w - filled), -fr.FONT_HEIGHT - BAR_MARGIN - h, filled, h, barColorBase | 0xFF000000);
+            }
+        }
 
-        GlStateManager.pushMatrix();              // Create new local matrix
-        GlStateManager.rotate(180f, 0f, 0f, 1f); // Rotate 180° around Z axis
+        // Text outline
+        int textWidth = fr.getStringWidth(text);
+        int tx = -textWidth/2;
+        int ty = -fr.FONT_HEIGHT;
+        GlStateManager.pushMatrix();
+        GlStateManager.rotate(180f, 0f, 0f, 1f);
         fr.drawString(text, tx + 1, -ty + 1, 0xAA000000, false);
         fr.drawString(text, tx, -ty, 0xFFFFFFFF, false);
-        GlStateManager.popMatrix();               // Restore
+        GlStateManager.popMatrix();
 
         GlStateManager.disableBlend();
         GlStateManager.enableLighting();
