@@ -4,7 +4,12 @@ import net.eofitg.healthbarmod.HealthBarMod;
 import net.eofitg.healthbarmod.hud.PlayerHealthBarRenderer;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CommandHealthBar extends CommandBase {
 
@@ -178,4 +183,64 @@ public class CommandHealthBar extends CommandBase {
             }
         }
     }
+
+
+
+    private static final List<String> SUBCOMMANDS = Arrays.asList(
+            "toggle", "self", "sneak", "distance", "scale",
+            "barwidth", "barheight", "barmargin",
+            "xoffset", "yoffset", "zoffset", "vertical", "reload"
+    );
+
+    @Override
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+        List<String> completions = new ArrayList<>();
+
+        if (args.length == 1) {
+            String prefix = args[0].toLowerCase();
+            for (String cmd : SUBCOMMANDS) {
+                if (cmd.startsWith(prefix)) {
+                    completions.add(cmd);
+                }
+            }
+        } else if (args.length == 2) {
+            String sub = args[0].toLowerCase();
+            switch (sub) {
+                case "toggle":
+                case "self":
+                case "sneak":
+                case "vertical":
+                    completions.add("true");
+                    completions.add("false");
+                    break;
+                case "distance":
+                    completions.add("24.0");
+                    break;
+                case "scale":
+                    completions.add("0.0165");
+                    break;
+                case "barwidth":
+                    completions.add("70");
+                    break;
+                case "barheight":
+                    completions.add("7");
+                    break;
+                case "barmargin":
+                    completions.add("10");
+                    break;
+                case "xoffset":
+                    completions.add("0");
+                    break;
+                case "yoffset":
+                    completions.add("1");
+                    break;
+                case "zoffset":
+                    completions.add("0");
+                    break;
+            }
+        }
+
+        return completions.isEmpty() ? null : completions;
+    }
+
 }
