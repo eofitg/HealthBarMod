@@ -1,0 +1,16 @@
+[
+{
+  "modid": "healthbarmod",
+  "name": "Health Bar Mod",
+  "description": "Display A Configurable Health Bar Around Player",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["eofitg"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
