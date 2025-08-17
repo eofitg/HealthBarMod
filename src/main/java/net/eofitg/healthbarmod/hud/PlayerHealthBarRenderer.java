@@ -61,18 +61,18 @@ public class PlayerHealthBarRenderer {
         FontRenderer fr = mc.fontRendererObj;
 
         float health = p.getHealth();
-        float max = p.getMaxHealth();
+        float maxHealth = p.getMaxHealth();
         float absorption = p.getAbsorptionAmount();
-        if (max <= 0f) max = 20f;
+        if (maxHealth <= 0f) maxHealth = 20f;
 
         // Text showing real health + absorption
-        String text = (int)Math.ceil(health + absorption) + "/" + (int)max;
+        String text = (int)Math.ceil(health + absorption) + "/" + (int)maxHealth;
 
         // Calculate ratio relative to total health (health + absorption)
-        float totalHealth = health + absorption;
+        float totalHealth = Math.max(health + absorption, maxHealth);
         float ratioBase = totalHealth > 0 ? health / totalHealth : 0;
         float ratioAbsorb = totalHealth > 0 ? absorption / totalHealth : 0;
-        float ratio = Math.max(0f, Math.min(1f, health / max));
+        float ratio = Math.max(0f, Math.min(1f, health / maxHealth));
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y + Y_OFFSET, z);
@@ -92,9 +92,9 @@ public class PlayerHealthBarRenderer {
         int bg = 0xAA000000;
 
         // Base color for health bar (green → yellow → red)
-        int barColorBase = lerpColor(0xFF00FF00, 0xFFFFFF00, 1f - Math.min(health / max * 2f, 1f));
-        if (health / max < 0.5f) {
-            float t = (0.5f - health / max) / 0.5f;
+        int barColorBase = lerpColor(0xFF00FF00, 0xFFFFFF00, 1f - Math.min(health / maxHealth * 2f, 1f));
+        if (health / maxHealth < 0.5f) {
+            float t = (0.5f - health / maxHealth) / 0.5f;
             barColorBase = lerpColor(0xFFFFFF00, 0xFFFF0000, t);
         }
 
@@ -111,7 +111,7 @@ public class PlayerHealthBarRenderer {
             float filledBase = w * ratioBase;
             float filledAbsorb = w * ratioAbsorb;
             drawRect(-w / 2 + (w - filledBase), -fr.FONT_HEIGHT - BAR_MARGIN - h, filledBase, h, barColorBase | 0xFF000000);
-            drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, filledAbsorb, h, 0xFFFFD700);
+            drawRect(-w / 2 + (w - filledBase - filledAbsorb), -fr.FONT_HEIGHT - BAR_MARGIN - h, filledAbsorb, h, 0xFFFFD700);
         }
         else {
             float filled = w * ratio;

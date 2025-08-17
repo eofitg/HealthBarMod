@@ -10,10 +10,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.File;
 
-@Mod(modid = HealthBarMod.MODID, name = "Health Bar Mod", version = "1.2.1", acceptedMinecraftVersions = "[1.8.9]")
+@Mod(
+        modid = HealthBarMod.MODID,
+        name = "Health Bar Mod",
+        version = "1.2.2",
+        acceptedMinecraftVersions = "[1.8.9]"
+)
 public class HealthBarMod {
     public static final String MODID = "healthbarmod";
-
     public static ConfigHandler configHandler;
 
     @Mod.EventHandler
