@@ -20,9 +20,9 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.2"              // replace with the version of your mod that you have in your main mod file
+version = "1.2.1"              // replace with the version of your mod that you have in your main mod file
 group = "net.eofitg.healthbarmod" // replace with your package name see http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "healthbarmod"   // this will be the name of the .jar it can be whatever you like
+archivesBaseName = "HealthBarMod"   // this will be the name of the .jar it can be whatever you like
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

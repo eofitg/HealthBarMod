@@ -15,15 +15,19 @@ public class PlayerHealthBarRenderer {
     public static boolean HIDE_WHEN_SNEAKING = false; // Hide when sneaking
     public static double  MAX_DISTANCE = 24.0;        // Maximum render distance
     public static float   SCALE = 0.0165F;            // Overall scale (font/bar size)
+    public static float   X_OFFSET = 0f;              // Horizontal offset (block units)
+    public static float   Y_OFFSET = 0f;              // Vertical offset (block units)
+    public static float   Z_OFFSET = 0f;              // Depth offset (block units)
     public static float   BAR_WIDTH = 70f;            // Bar width in pixels (before scaling)
     public static float   BAR_HEIGHT = 7f;            // Bar height in pixels
     public static float   BAR_MARGIN = 10f;           // Margin between bar and name text (pixels)
-    public static float   X_OFFSET = 0f;              // Horizontal offset (block units)
-    public static float   Y_OFFSET = 1f;              // Vertical offset (block units)
-    public static float   Z_OFFSET = 0f;              // Depth offset (block units)
-    public static boolean VERTICAL = false;           // false = horizontal, true = vertical
+    public static float BAR_ROTATION = 0f;            // Rotation angle of health bar
+    public static float BAR_X_OFFSET = 0f;            // Horizontal offset of health bar (block units)
+    public static float BAR_Y_OFFSET = 0f;            // Vertical offset of health bar (block units)
+    public static float BAR_Z_OFFSET = 0f;            // Depth offset of health bar (block units)
 
     private final Minecraft mc = Minecraft.getMinecraft();
+    private final static float DefaultYOffset = 1f;
 
     // Use RenderPlayerEvent.Post to overlay the health bar after player model is rendered
     @SubscribeEvent
@@ -47,7 +51,7 @@ public class PlayerHealthBarRenderer {
         if (p.isInvisible()) return;
 
         double x = event.x;
-        double y = event.y + p.height;
+        double y = event.y + p.height + DefaultYOffset;
         double z = event.z;
 
         renderHealthBar(p, x, y, z);
@@ -84,6 +88,7 @@ public class PlayerHealthBarRenderer {
 
         float w = BAR_WIDTH;
         float h = BAR_HEIGHT;
+        float r = BAR_ROTATION;
         int bg = 0xAA000000;
 
         // Base color for health bar (green → yellow → red)
@@ -93,34 +98,30 @@ public class PlayerHealthBarRenderer {
             barColorBase = lerpColor(0xFFFFFF00, 0xFFFF0000, t);
         }
 
+        // Health bar
+        float cx = 0;
+        float cy = -fr.FONT_HEIGHT - BAR_MARGIN - h / 2f;
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(cx, cy, 0f);
+        GlStateManager.rotate(r, 0f, 0f, 1f);
+        GlStateManager.translate(-cx, -cy, 0f);
+        GlStateManager.translate(BAR_X_OFFSET, BAR_Y_OFFSET, BAR_Z_OFFSET);
         drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, h, bg);
-        if (VERTICAL) {
-            if (absorption > 0f) {
-                float filledBase = h * ratioBase;
-                float filledAbsorb = h * ratioAbsorb;
-                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, filledBase, barColorBase | 0xFF000000);
-                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h + filledBase, w, filledAbsorb, 0xFFFFD700);
-            }
-            else {
-                float filled = h * ratio;
-                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, w, filled, barColorBase | 0xFF000000);
-            }
-        } else {
-            if (absorption > 0f) {
-                float filledBase = w * ratioBase;
-                float filledAbsorb = w * ratioAbsorb;
-                drawRect(-w / 2 + (w - filledBase), -fr.FONT_HEIGHT - BAR_MARGIN - h, filledBase, h, barColorBase | 0xFF000000);
-                drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, filledAbsorb, h, 0xFFFFD700);
-            }
-            else {
-                float filled = w * ratio;
-                drawRect(-w / 2 + (w - filled), -fr.FONT_HEIGHT - BAR_MARGIN - h, filled, h, barColorBase | 0xFF000000);
-            }
+        if (absorption > 0f) {
+            float filledBase = w * ratioBase;
+            float filledAbsorb = w * ratioAbsorb;
+            drawRect(-w / 2 + (w - filledBase), -fr.FONT_HEIGHT - BAR_MARGIN - h, filledBase, h, barColorBase | 0xFF000000);
+            drawRect(-w / 2, -fr.FONT_HEIGHT - BAR_MARGIN - h, filledAbsorb, h, 0xFFFFD700);
         }
+        else {
+            float filled = w * ratio;
+            drawRect(-w / 2 + (w - filled), -fr.FONT_HEIGHT - BAR_MARGIN - h, filled, h, barColorBase | 0xFF000000);
+        }
+        GlStateManager.popMatrix();
 
         // Text outline
         int textWidth = fr.getStringWidth(text);
-        int tx = -textWidth/2;
+        int tx = -textWidth / 2;
         int ty = -fr.FONT_HEIGHT;
         GlStateManager.pushMatrix();
         GlStateManager.rotate(180f, 0f, 0f, 1f);

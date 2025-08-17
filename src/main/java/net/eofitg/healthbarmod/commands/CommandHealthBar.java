@@ -20,7 +20,7 @@ public class CommandHealthBar extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/healthbar <toggle|self|sneak|distance <value>|scale <value>|barwidth <value>|barheight <value>|barmargin <value>|xoffset <value>|yoffset <value>|zoffset <value>|vertical|reload>";
+        return "/healthbar toggle|self|sneak|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
     }
 
     @Override
@@ -86,6 +86,41 @@ public class CommandHealthBar extends CommandBase {
                 }
                 break;
             }
+            case "xoffset": {
+                if(args.length >= 2){
+                    try{
+                        PlayerHealthBarRenderer.X_OFFSET = Float.parseFloat(args[1]);
+                        sender.addChatMessage(new ChatComponentText("§aX offset: " + PlayerHealthBarRenderer.X_OFFSET));
+                        HealthBarMod.configHandler.save();
+                    } catch(NumberFormatException e){ sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!")); }
+                } else { sender.addChatMessage(new ChatComponentText("§eCurrent X offset: " + PlayerHealthBarRenderer.X_OFFSET)); }
+                break;
+            }
+            case "yoffset": {
+                if (args.length >= 2) {
+                    try {
+                        float y = Float.parseFloat(args[1]);
+                        PlayerHealthBarRenderer.Y_OFFSET = y;
+                        sender.addChatMessage(new ChatComponentText("§aY offset: " + y));
+                        HealthBarMod.configHandler.save();
+                    } catch (NumberFormatException e) {
+                        sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!"));
+                    }
+                } else {
+                    sender.addChatMessage(new ChatComponentText("§eCurrent Y offset: " + PlayerHealthBarRenderer.Y_OFFSET));
+                }
+                break;
+            }
+            case "zoffset": {
+                if(args.length >= 2){
+                    try{
+                        PlayerHealthBarRenderer.Z_OFFSET = Float.parseFloat(args[1]);
+                        sender.addChatMessage(new ChatComponentText("§aZ offset " + PlayerHealthBarRenderer.Z_OFFSET));
+                        HealthBarMod.configHandler.save();
+                    } catch(NumberFormatException e){ sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!")); }
+                } else { sender.addChatMessage(new ChatComponentText("§eCurrent Z offset: " + PlayerHealthBarRenderer.Z_OFFSET)); }
+                break;
+            }
             case "barwidth": {
                 if (args.length >= 2) {
                     try {
@@ -131,45 +166,49 @@ public class CommandHealthBar extends CommandBase {
                 }
                 break;
             }
-            case "xoffset": {
-                if(args.length >= 2){
-                    try{
-                        PlayerHealthBarRenderer.X_OFFSET = Float.parseFloat(args[1]);
-                        sender.addChatMessage(new ChatComponentText("§aX offset: " + PlayerHealthBarRenderer.X_OFFSET));
-                        HealthBarMod.configHandler.save();
-                    } catch(NumberFormatException e){ sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!")); }
-                } else { sender.addChatMessage(new ChatComponentText("§eCurrent X offset: " + PlayerHealthBarRenderer.X_OFFSET)); }
-                break;
-            }
-            case "yoffset": {
+            case "barrotation": {
                 if (args.length >= 2) {
                     try {
-                        float y = Float.parseFloat(args[1]);
-                        PlayerHealthBarRenderer.Y_OFFSET = y;
-                        sender.addChatMessage(new ChatComponentText("§aY offset: " + y));
+                        float r = Float.parseFloat(args[1]);
+                        PlayerHealthBarRenderer.BAR_ROTATION = r;
+                        sender.addChatMessage(new ChatComponentText("§aBar rotation: " + r));
                         HealthBarMod.configHandler.save();
                     } catch (NumberFormatException e) {
                         sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!"));
                     }
                 } else {
-                    sender.addChatMessage(new ChatComponentText("§eCurrent Y offset: " + PlayerHealthBarRenderer.Y_OFFSET));
+                    sender.addChatMessage(new ChatComponentText("§eCurrent bar rotation: " + PlayerHealthBarRenderer.BAR_ROTATION));
                 }
                 break;
             }
-            case "zoffset": {
+            case "barxoffset": {
                 if(args.length >= 2){
                     try{
-                        PlayerHealthBarRenderer.Z_OFFSET = Float.parseFloat(args[1]);
-                        sender.addChatMessage(new ChatComponentText("§aZ offset " + PlayerHealthBarRenderer.Z_OFFSET));
+                        PlayerHealthBarRenderer.BAR_X_OFFSET = Float.parseFloat(args[1]);
+                        sender.addChatMessage(new ChatComponentText("§aHealth bar X offset: " + PlayerHealthBarRenderer.BAR_X_OFFSET));
                         HealthBarMod.configHandler.save();
                     } catch(NumberFormatException e){ sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!")); }
-                } else { sender.addChatMessage(new ChatComponentText("§eCurrent Z offset: " + PlayerHealthBarRenderer.Z_OFFSET)); }
+                } else { sender.addChatMessage(new ChatComponentText("§eCurrent health bar X offset: " + PlayerHealthBarRenderer.BAR_X_OFFSET)); }
                 break;
             }
-            case "vertical": {
-                PlayerHealthBarRenderer.VERTICAL = !PlayerHealthBarRenderer.VERTICAL;
-                sender.addChatMessage(new ChatComponentText("§aVertical bar: " + PlayerHealthBarRenderer.VERTICAL));
-                HealthBarMod.configHandler.save();
+            case "baryoffset": {
+                if(args.length >= 2){
+                    try{
+                        PlayerHealthBarRenderer.BAR_Y_OFFSET = Float.parseFloat(args[1]);
+                        sender.addChatMessage(new ChatComponentText("§aHealth bar Y offset: " + PlayerHealthBarRenderer.BAR_Y_OFFSET));
+                        HealthBarMod.configHandler.save();
+                    } catch(NumberFormatException e){ sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!")); }
+                } else { sender.addChatMessage(new ChatComponentText("§eCurrent health bar Y offset: " + PlayerHealthBarRenderer.BAR_Y_OFFSET)); }
+                break;
+            }
+            case "barzoffset": {
+                if(args.length >= 2){
+                    try{
+                        PlayerHealthBarRenderer.BAR_Z_OFFSET = Float.parseFloat(args[1]);
+                        sender.addChatMessage(new ChatComponentText("§aHealth bar Z offset: " + PlayerHealthBarRenderer.BAR_Z_OFFSET));
+                        HealthBarMod.configHandler.save();
+                    } catch(NumberFormatException e){ sender.addChatMessage(new ChatComponentText("§cPlease enter a valid number!")); }
+                } else { sender.addChatMessage(new ChatComponentText("§eCurrent health bar Z offset: " + PlayerHealthBarRenderer.BAR_Z_OFFSET)); }
                 break;
             }
             case "reload": {
@@ -188,8 +227,9 @@ public class CommandHealthBar extends CommandBase {
 
     private static final List<String> SUBCOMMANDS = Arrays.asList(
             "toggle", "self", "sneak", "distance", "scale",
-            "barwidth", "barheight", "barmargin",
-            "xoffset", "yoffset", "zoffset", "vertical", "reload"
+            "barwidth", "barheight", "barmargin", "barrotation",
+            "barxoffset", "baryoffset", "barzoffset",
+            "xoffset", "yoffset", "zoffset", "reload"
     );
 
     @Override
@@ -209,7 +249,6 @@ public class CommandHealthBar extends CommandBase {
                 case "toggle":
                 case "self":
                 case "sneak":
-                case "vertical":
                     completions.add("true");
                     completions.add("false");
                     break;
@@ -228,12 +267,12 @@ public class CommandHealthBar extends CommandBase {
                 case "barmargin":
                     completions.add("10");
                     break;
+                case "barrotation":
+                case "barxoffset":
+                case "baryoffset":
+                case "barzoffset":
                 case "xoffset":
-                    completions.add("0");
-                    break;
                 case "yoffset":
-                    completions.add("1");
-                    break;
                 case "zoffset":
                     completions.add("0");
                     break;
