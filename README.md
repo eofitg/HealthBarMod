@@ -34,3 +34,7 @@ All options can be changed in `HealthBarMod.cfg` or via commands.
 
 * `enabled`, `showSelf`, `hideWhenSneaking`, `vertical` — booleans
 * `maxDistance`, `scale`, `barWidth`, `barHeight`, `barMargin`, `xOffset`, `yOffset`, `zOffset` — numbers
+
+## Notes
+
+[USE THIS MOD AT YOUR OWN RISK](https://support.hypixel.net/hc/en-us/articles/6472550754962-Hypixel-Allowed-Modifications)
