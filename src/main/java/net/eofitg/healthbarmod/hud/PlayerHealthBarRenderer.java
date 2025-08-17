@@ -66,7 +66,10 @@ public class PlayerHealthBarRenderer {
         if (maxHealth <= 0f) maxHealth = 20f;
 
         // Text showing real health + absorption
-        String text = (int)Math.ceil(health + absorption) + "/" + (int)maxHealth;
+        String text = "";
+        if ((int)Math.ceil(absorption) > 0)
+            text +=  (int)Math.ceil(absorption) + "+";
+        text += (int)Math.ceil(health) + "/" + (int)maxHealth;
 
         // Calculate ratio relative to total health (health + absorption)
         float totalHealth = Math.max(health + absorption, maxHealth);
