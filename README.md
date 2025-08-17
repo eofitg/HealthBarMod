@@ -2,6 +2,8 @@
 
 A simple Minecraft mod that displays customizable health bars around player.
 
+![showcase](./img/showcase1.png)
+
 ## Features
 
 * Show health bars for other players (optionally yourself).
