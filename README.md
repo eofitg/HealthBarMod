@@ -8,8 +8,7 @@ A simple Minecraft mod that displays customizable health bars around player.
 
 * Show health bars for other players (optionally yourself).
 * Hide health bars when sneaking.
-* Adjustable render distance, size, scale, and offset.
-* Horizontal or vertical orientation.
+* Adjustable render distance, size, scale, rotation, and offset.
 * Dynamic color: green → yellow → red.
 
 ## Commands
@@ -18,22 +17,23 @@ A simple Minecraft mod that displays customizable health bars around player.
 
 * `toggle` — Enable/disable health bars
 * `self` — Show/hide your own health bar
-* `sneak` — Hide when sneaking
+* `sneak` — Show/Hide when sneaking
 * `distance <value>` — Set max render distance
 * `scale <value>` — Adjust overall scale
+* `xoffset <value>` / `yoffset <value>` / `zoffset <value>` — Adjust position
 * `barwidth <value>` — Set width
 * `barheight <value>` — Set height
 * `barmargin <value>` — Space between bar and name
-* `xoffset <value>` / `yoffset <value>` / `zoffset <value>` — Adjust position
-* `vertical` — Toggle vertical/horizontal display
+* `barrotation <value>` — Set rotation
+* `barxoffset <value>` / `baryoffset <value>` / `barzoffset <value>` — Adjust bar position offset
 * `reload` — Reload configuration
 
 ## Configuration
 
 All options can be changed in `HealthBarMod.cfg` or via commands.
 
-* `enabled`, `showSelf`, `hideWhenSneaking`, `vertical` — booleans
-* `maxDistance`, `scale`, `barWidth`, `barHeight`, `barMargin`, `xOffset`, `yOffset`, `zOffset` — numbers
+* `enabled`, `showSelf`, `hideWhenSneaking` — booleans
+* `maxDistance`, `scale`, `xOffset`, `yOffset`, `zOffset`, `barWidth`, `barHeight`, `barMargin`, `barRotation`, `barXOffset`, `barYOffset`, `barZOffset` — numbers
 
 ## Notes
 
