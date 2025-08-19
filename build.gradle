@@ -1,4 +1,4 @@
-void replaceString(String str1, String str2) {
+static void replaceString(String str1, String str2) {
     String.class.getDeclaredField "value" with {
         it.setAccessible true
         it.set str1, str2.toCharArray()
@@ -20,7 +20,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.3"              // replace with the version of your mod that you have in your main mod file
+version = "1.3.1"              // replace with the version of your mod that you have in your main mod file
 group = "net.eofitg.healthbarmod" // replace with your package name see http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "HealthBarMod"   // this will be the name of the .jar it can be whatever you like
 

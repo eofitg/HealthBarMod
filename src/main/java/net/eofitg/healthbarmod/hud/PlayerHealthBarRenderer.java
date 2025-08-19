@@ -1,6 +1,7 @@
 package net.eofitg.healthbarmod.hud;
 
 import net.eofitg.healthbarmod.config.DefaultConfig;
+import net.eofitg.healthbarmod.util.StringUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -135,6 +136,7 @@ public class PlayerHealthBarRenderer {
         int textColor = 0xFFFFFFFF;
         ScorePlayerTeam team = (ScorePlayerTeam) p.getTeam();
         if (team != null && TEAM_COLOR) {  // Team Color
+            // Rank Color
             EnumChatFormatting format = team.getChatFormat();
             if (format != null && format.isColor()) {
                 int index = format.getColorIndex(); // 0 - 15
@@ -142,6 +144,12 @@ public class PlayerHealthBarRenderer {
                     char code = "0123456789abcdef".charAt(index);
                     textColor = mc.fontRendererObj.getColorCode(code);
                 }
+            }
+            // Mini-game Team Color
+            String teamPrefix = team.getColorPrefix();
+            char code = StringUtil.getLastColorCharOf(teamPrefix);
+            if (code != '\0') {
+                textColor = mc.fontRendererObj.getColorCode(code);
             }
         }
         GlStateManager.pushMatrix();

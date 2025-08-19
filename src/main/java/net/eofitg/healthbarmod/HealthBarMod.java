@@ -13,7 +13,7 @@ import java.io.File;
 @Mod(
         modid = HealthBarMod.MODID,
         name = "Health Bar Mod",
-        version = "1.3",
+        version = "1.3.1",
         acceptedMinecraftVersions = "[1.8.9]"
 )
 public class HealthBarMod {
