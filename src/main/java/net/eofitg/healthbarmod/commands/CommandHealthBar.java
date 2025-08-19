@@ -21,7 +21,7 @@ public class CommandHealthBar extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/healthbar toggle|self|sneak|face|team|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
+        return "/healthbar toggle|self|sneak|face|team|shadow|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
     }
 
     @Override
@@ -66,6 +66,12 @@ public class CommandHealthBar extends CommandBase {
             case "team": {
                 PlayerHealthBarRenderer.TEAM_COLOR = !PlayerHealthBarRenderer.TEAM_COLOR;
                 sender.addChatMessage(new ChatComponentText("§aText team color: " + PlayerHealthBarRenderer.TEAM_COLOR));
+                HealthBarMod.configHandler.save();
+                break;
+            }
+            case "shadow": {
+                PlayerHealthBarRenderer.TEXT_SHADOW = !PlayerHealthBarRenderer.TEXT_SHADOW;
+                sender.addChatMessage(new ChatComponentText("§aText shadow: " + PlayerHealthBarRenderer.TEXT_SHADOW));
                 HealthBarMod.configHandler.save();
                 break;
             }
@@ -252,7 +258,7 @@ public class CommandHealthBar extends CommandBase {
 
 
     private static final List<String> SUBCOMMANDS = Arrays.asList(
-            "toggle", "self", "sneak", "face", "team",
+            "toggle", "self", "sneak", "face", "team", "shadow",
             "distance", "scale",
             "barwidth", "barheight", "barmargin", "barrotation",
             "barxoffset", "baryoffset", "barzoffset",

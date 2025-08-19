@@ -20,6 +20,7 @@ public class ConfigHandler {
         PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING = config.getBoolean("hideWhenSneaking", "general", DefaultConfig.hideWhenSneaking, "Whether to hide health bar when sneaking");
         PlayerHealthBarRenderer.FACE_PLAYER = config.getBoolean("facePlayer", "general", DefaultConfig.facePlayer, "Whether to keep health bar always facing player");
         PlayerHealthBarRenderer.TEAM_COLOR = config.getBoolean("teamColor", "general", DefaultConfig.teamColor, "Whether to render text with specific team color");
+        PlayerHealthBarRenderer.TEXT_SHADOW = config.getBoolean("textShadow", "general", DefaultConfig.textShadow, "Whether to render text shadow");
         PlayerHealthBarRenderer.MAX_DISTANCE = config.getFloat("maxDistance", "general", DefaultConfig.maxDistance, 1.0f, 128.0f, "Maximum render distance");
         PlayerHealthBarRenderer.SCALE = config.getFloat("scale", "general", DefaultConfig.scale, 0.005f, 0.05f, "Overall scale size");
         PlayerHealthBarRenderer.X_OFFSET = config.getFloat("xOffset", "general", DefaultConfig.xOffset, -5f, 5f, "Horizontal offset of overall");
@@ -44,6 +45,7 @@ public class ConfigHandler {
         config.get("general", "hideWhenSneaking", DefaultConfig.hideWhenSneaking).set(PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING);
         config.get("general", "facePlayer", DefaultConfig.facePlayer).set(PlayerHealthBarRenderer.FACE_PLAYER);
         config.get("general", "teamColor", DefaultConfig.teamColor).set(PlayerHealthBarRenderer.TEAM_COLOR);
+        config.get("general", "textShadow", DefaultConfig.textShadow).set(PlayerHealthBarRenderer.TEXT_SHADOW);
         config.get("general", "maxDistance", DefaultConfig.maxDistance).set(PlayerHealthBarRenderer.MAX_DISTANCE);
         config.get("general", "scale", DefaultConfig.scale).set(PlayerHealthBarRenderer.SCALE);
         config.get("general", "xOffset", DefaultConfig.xOffset).set(PlayerHealthBarRenderer.X_OFFSET);

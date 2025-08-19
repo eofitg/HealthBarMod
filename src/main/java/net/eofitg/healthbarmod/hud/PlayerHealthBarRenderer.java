@@ -17,7 +17,8 @@ public class PlayerHealthBarRenderer {
     public static boolean SHOW_SELF             = DefaultConfig.showSelf;               // Whether to show own health bar
     public static boolean HIDE_WHEN_SNEAKING    = DefaultConfig.hideWhenSneaking;       // Hide when sneaking
     public static boolean FACE_PLAYER           = DefaultConfig.facePlayer;             // Whether health bar is always facing player
-    public static boolean TEAM_COLOR            = DefaultConfig.teamColor;              // Whether text rendering with specific team color
+    public static boolean TEAM_COLOR            = DefaultConfig.teamColor;              // Whether to render text with specific team color
+    public static boolean TEXT_SHADOW           = DefaultConfig.textShadow;             // Whether to render text shadow
     public static double  MAX_DISTANCE          = DefaultConfig.maxDistance;            // Maximum render distance (block units)
     public static float   SCALE                 = DefaultConfig.scale;                  // Overall scale (font/bar size)
     public static float   X_OFFSET              = DefaultConfig.xOffset;                // Horizontal offset (block units)
@@ -145,7 +146,9 @@ public class PlayerHealthBarRenderer {
         }
         GlStateManager.pushMatrix();
         GlStateManager.rotate(180f, 0f, 0f, 1f);
-        fr.drawString(text, tx + 1, -ty + 1, 0xAA000000, false);
+        if (TEXT_SHADOW) {
+            fr.drawString(text, tx + 1, -ty + 1, 0xAA000000, false);
+        }
         fr.drawString(text, tx, -ty, textColor, false);
         GlStateManager.popMatrix();
 
