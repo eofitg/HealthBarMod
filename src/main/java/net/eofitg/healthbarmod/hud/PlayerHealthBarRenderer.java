@@ -13,6 +13,7 @@ public class PlayerHealthBarRenderer {
     public static boolean ENABLED = true;             // Whether health bar rendering is enabled
     public static boolean SHOW_SELF = false;          // Whether to show own health bar
     public static boolean HIDE_WHEN_SNEAKING = false; // Hide when sneaking
+    public static boolean FACE_PLAYER = false;        // Whether health bar is always facing player
     public static double  MAX_DISTANCE = 24.0;        // Maximum render distance
     public static float   SCALE = 0.0165F;            // Overall scale (font/bar size)
     public static float   X_OFFSET = 0f;              // Horizontal offset (block units)
@@ -81,7 +82,7 @@ public class PlayerHealthBarRenderer {
         GlStateManager.translate(x, y + Y_OFFSET, z);
         GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0f, 1f, 0f);
         GlStateManager.translate(X_OFFSET, 0, Z_OFFSET);
-        if (mc.gameSettings.thirdPersonView == 0) {
+        if (FACE_PLAYER) {
             GlStateManager.rotate(mc.getRenderManager().playerViewX, 1f, 0f, 0f);
         }
         GlStateManager.scale(SCALE, SCALE, SCALE);

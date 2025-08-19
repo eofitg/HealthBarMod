@@ -20,7 +20,7 @@ public class CommandHealthBar extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/healthbar toggle|self|sneak|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
+        return "/healthbar toggle|self|sneak|face|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
     }
 
     @Override
@@ -53,6 +53,12 @@ public class CommandHealthBar extends CommandBase {
             case "sneak": {
                 PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING = !PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING;
                 sender.addChatMessage(new ChatComponentText("§aHide when sneaking: " + PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING));
+                HealthBarMod.configHandler.save();
+                break;
+            }
+            case "face": {
+                PlayerHealthBarRenderer.FACE_PLAYER = !PlayerHealthBarRenderer.FACE_PLAYER;
+                sender.addChatMessage(new ChatComponentText("§Always facing player: " + PlayerHealthBarRenderer.FACE_PLAYER));
                 HealthBarMod.configHandler.save();
                 break;
             }
@@ -239,7 +245,7 @@ public class CommandHealthBar extends CommandBase {
 
 
     private static final List<String> SUBCOMMANDS = Arrays.asList(
-            "toggle", "self", "sneak", "distance", "scale",
+            "toggle", "self", "sneak", "face", "distance", "scale",
             "barwidth", "barheight", "barmargin", "barrotation",
             "barxoffset", "baryoffset", "barzoffset",
             "xoffset", "yoffset", "zoffset", "reload"
@@ -262,6 +268,7 @@ public class CommandHealthBar extends CommandBase {
                 case "toggle":
                 case "self":
                 case "sneak":
+                case "face":
                     completions.add("true");
                     completions.add("false");
                     break;

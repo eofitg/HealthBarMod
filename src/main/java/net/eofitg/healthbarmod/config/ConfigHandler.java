@@ -18,6 +18,7 @@ public class ConfigHandler {
         PlayerHealthBarRenderer.ENABLED = config.getBoolean("enabled", "general", true, "Whether health bar rendering is enabled");
         PlayerHealthBarRenderer.SHOW_SELF = config.getBoolean("showSelf", "general", false, "Whether to show own health bar");
         PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING = config.getBoolean("hideWhenSneaking", "general", false, "Hide health bar when sneaking");
+        PlayerHealthBarRenderer.FACE_PLAYER = config.getBoolean("facePlayer", "general", false, "Keep health bar always facing player");
         PlayerHealthBarRenderer.MAX_DISTANCE = config.getFloat("maxDistance", "general", 24.0f, 1.0f, 128.0f, "Maximum render distance");
         PlayerHealthBarRenderer.SCALE = config.getFloat("scale", "general", 0.0165f, 0.005f, 0.05f, "Overall scale size");
         PlayerHealthBarRenderer.X_OFFSET = config.getFloat("xOffset", "general", 0f, -5f, 5f, "Horizontal offset of overall");
@@ -40,6 +41,7 @@ public class ConfigHandler {
         config.get("general", "enabled", true).set(PlayerHealthBarRenderer.ENABLED);
         config.get("general", "showSelf", false).set(PlayerHealthBarRenderer.SHOW_SELF);
         config.get("general", "hideWhenSneaking", false).set(PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING);
+        config.get("general", "facePlayer", false).set(PlayerHealthBarRenderer.FACE_PLAYER);
         config.get("general", "maxDistance", 24.0).set(PlayerHealthBarRenderer.MAX_DISTANCE);
         config.get("general", "scale", 0.0165).set(PlayerHealthBarRenderer.SCALE);
         config.get("general", "xOffset", 0f).set(PlayerHealthBarRenderer.X_OFFSET);
