@@ -14,21 +14,21 @@ public class PlayerHealthBarRenderer {
     public static boolean SHOW_SELF = false;          // Whether to show own health bar
     public static boolean HIDE_WHEN_SNEAKING = false; // Hide when sneaking
     public static boolean FACE_PLAYER = false;        // Whether health bar is always facing player
-    public static double  MAX_DISTANCE = 24.0;        // Maximum render distance
-    public static float   SCALE = 0.0165F;            // Overall scale (font/bar size)
+    public static double  MAX_DISTANCE = 24.0;        // Maximum render distance (block units)
+    public static float   SCALE = 0.025F;            // Overall scale (font/bar size)
     public static float   X_OFFSET = 0f;              // Horizontal offset (block units)
     public static float   Y_OFFSET = 0f;              // Vertical offset (block units)
     public static float   Z_OFFSET = 0f;              // Depth offset (block units)
-    public static float   BAR_WIDTH = 70f;            // Bar width in pixels (before scaling)
-    public static float   BAR_HEIGHT = 7f;            // Bar height in pixels
+    public static float   BAR_WIDTH = 60f;            // Bar width in pixels (before scaling)
+    public static float   BAR_HEIGHT = 3f;            // Bar height in pixels
     public static float   BAR_MARGIN = 10f;           // Margin between bar and name text (pixels)
     public static float BAR_ROTATION = 0f;            // Rotation angle of health bar
-    public static float BAR_X_OFFSET = 0f;            // Horizontal offset of health bar (block units)
-    public static float BAR_Y_OFFSET = 0f;            // Vertical offset of health bar (block units)
-    public static float BAR_Z_OFFSET = 0f;            // Depth offset of health bar (block units)
+    public static float BAR_X_OFFSET = 0f;            // Horizontal offset of health bar (pixels)
+    public static float BAR_Y_OFFSET = 0f;            // Vertical offset of health bar (pixels)
+    public static float BAR_Z_OFFSET = 0f;            // Depth offset of health bar (pixels)
 
     private final Minecraft mc = Minecraft.getMinecraft();
-    private final static float DefaultYOffset = 1f;
+    private final static float DefaultYOffset = 0.6f;
 
     // Use RenderPlayerEvent.Post to overlay the health bar after player model is rendered
     @SubscribeEvent
