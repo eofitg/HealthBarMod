@@ -1,5 +1,6 @@
 package net.eofitg.healthbarmod.hud;
 
+import net.eofitg.healthbarmod.config.DefaultConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -10,22 +11,22 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PlayerHealthBarRenderer {
 
     // —— Configurable via commands —— //
-    public static boolean ENABLED = true;             // Whether health bar rendering is enabled
-    public static boolean SHOW_SELF = false;          // Whether to show own health bar
-    public static boolean HIDE_WHEN_SNEAKING = false; // Hide when sneaking
-    public static boolean FACE_PLAYER = false;        // Whether health bar is always facing player
-    public static double  MAX_DISTANCE = 24.0;        // Maximum render distance (block units)
-    public static float   SCALE = 0.025F;            // Overall scale (font/bar size)
-    public static float   X_OFFSET = 0f;              // Horizontal offset (block units)
-    public static float   Y_OFFSET = 0f;              // Vertical offset (block units)
-    public static float   Z_OFFSET = 0f;              // Depth offset (block units)
-    public static float   BAR_WIDTH = 60f;            // Bar width in pixels (before scaling)
-    public static float   BAR_HEIGHT = 3f;            // Bar height in pixels
-    public static float   BAR_MARGIN = 10f;           // Margin between bar and name text (pixels)
-    public static float BAR_ROTATION = 0f;            // Rotation angle of health bar
-    public static float BAR_X_OFFSET = 0f;            // Horizontal offset of health bar (pixels)
-    public static float BAR_Y_OFFSET = 0f;            // Vertical offset of health bar (pixels)
-    public static float BAR_Z_OFFSET = 0f;            // Depth offset of health bar (pixels)
+    public static boolean ENABLED               = DefaultConfig.enabled;                // Whether health bar rendering is enabled
+    public static boolean SHOW_SELF             = DefaultConfig.showSelf;               // Whether to show own health bar
+    public static boolean HIDE_WHEN_SNEAKING    = DefaultConfig.hideWhenSneaking;       // Hide when sneaking
+    public static boolean FACE_PLAYER           = DefaultConfig.facePlayer;             // Whether health bar is always facing player
+    public static double  MAX_DISTANCE          = DefaultConfig.maxDistance;            // Maximum render distance (block units)
+    public static float   SCALE                 = DefaultConfig.scale;                  // Overall scale (font/bar size)
+    public static float   X_OFFSET              = DefaultConfig.xOffset;                // Horizontal offset (block units)
+    public static float   Y_OFFSET              = DefaultConfig.yOffset;                // Vertical offset (block units)
+    public static float   Z_OFFSET              = DefaultConfig.zOffset;                // Depth offset (block units)
+    public static float   BAR_WIDTH             = DefaultConfig.barWidth;               // Bar width in pixels (before scaling)
+    public static float   BAR_HEIGHT            = DefaultConfig.barHeight;              // Bar height in pixels
+    public static float   BAR_MARGIN            = DefaultConfig.barMargin;              // Margin between bar and name text (pixels)
+    public static float BAR_ROTATION            = DefaultConfig.barRotation;            // Rotation angle of health bar
+    public static float BAR_X_OFFSET            = DefaultConfig.barXOffset;             // Horizontal offset of health bar (pixels)
+    public static float BAR_Y_OFFSET            = DefaultConfig.barYOffset;             // Vertical offset of health bar (pixels)
+    public static float BAR_Z_OFFSET            = DefaultConfig.barZOffset;             // Depth offset of health bar (pixels)
 
     private final Minecraft mc = Minecraft.getMinecraft();
     private final static float DefaultYOffset = 0.6f;

@@ -15,22 +15,22 @@ public class ConfigHandler {
     public void load() {
         config.load();
 
-        PlayerHealthBarRenderer.ENABLED = config.getBoolean("enabled", "general", true, "Whether health bar rendering is enabled");
-        PlayerHealthBarRenderer.SHOW_SELF = config.getBoolean("showSelf", "general", false, "Whether to show own health bar");
-        PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING = config.getBoolean("hideWhenSneaking", "general", false, "Hide health bar when sneaking");
-        PlayerHealthBarRenderer.FACE_PLAYER = config.getBoolean("facePlayer", "general", false, "Keep health bar always facing player");
-        PlayerHealthBarRenderer.MAX_DISTANCE = config.getFloat("maxDistance", "general", 24.0f, 1.0f, 128.0f, "Maximum render distance");
-        PlayerHealthBarRenderer.SCALE = config.getFloat("scale", "general", 0.025f, 0.005f, 0.05f, "Overall scale size");
-        PlayerHealthBarRenderer.X_OFFSET = config.getFloat("xOffset", "general", 0f, -5f, 5f, "Horizontal offset of overall");
-        PlayerHealthBarRenderer.Y_OFFSET = config.getFloat("yOffset", "general", 0f, -2.5f, 2.5f, "Vertical offset of overall");
-        PlayerHealthBarRenderer.Z_OFFSET = config.getFloat("zOffset", "general", 0f, -5f, 5f, "Depth offset of overall");
-        PlayerHealthBarRenderer.BAR_WIDTH = config.getFloat("barWidth", "general", 60f, 1f, 100f, "Health bar width");
-        PlayerHealthBarRenderer.BAR_HEIGHT = config.getFloat("barHeight", "general", 3f, 1f, 100f, "Health bar height");
-        PlayerHealthBarRenderer.BAR_MARGIN = config.getFloat("barMargin", "general", 10f, 0f, 40f, "Margin between health bar and name");
-        PlayerHealthBarRenderer.BAR_ROTATION = config.getFloat("barRotation", "general", 0f, -180f, 180f, "Health bar rotation");
-        PlayerHealthBarRenderer.BAR_X_OFFSET = config.getFloat("barXOffset", "general", 0f, -200f, 200f, "Horizontal offset of health bar");
-        PlayerHealthBarRenderer.BAR_Y_OFFSET = config.getFloat("barYOffset", "general", 0f, -100f, 100f, "Vertical offset of health bar");
-        PlayerHealthBarRenderer.BAR_Z_OFFSET = config.getFloat("barZOffset", "general", 0f, -200f, 200f, "Depth offset of health bar");
+        PlayerHealthBarRenderer.ENABLED = config.getBoolean("enabled", "general", DefaultConfig.enabled, "Whether health bar rendering is enabled");
+        PlayerHealthBarRenderer.SHOW_SELF = config.getBoolean("showSelf", "general", DefaultConfig.showSelf, "Whether to show own health bar");
+        PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING = config.getBoolean("hideWhenSneaking", "general", DefaultConfig.hideWhenSneaking, "Hide health bar when sneaking");
+        PlayerHealthBarRenderer.FACE_PLAYER = config.getBoolean("facePlayer", "general", DefaultConfig.facePlayer, "Keep health bar always facing player");
+        PlayerHealthBarRenderer.MAX_DISTANCE = config.getFloat("maxDistance", "general", DefaultConfig.maxDistance, 1.0f, 128.0f, "Maximum render distance");
+        PlayerHealthBarRenderer.SCALE = config.getFloat("scale", "general", DefaultConfig.scale, 0.005f, 0.05f, "Overall scale size");
+        PlayerHealthBarRenderer.X_OFFSET = config.getFloat("xOffset", "general", DefaultConfig.xOffset, -5f, 5f, "Horizontal offset of overall");
+        PlayerHealthBarRenderer.Y_OFFSET = config.getFloat("yOffset", "general", DefaultConfig.yOffset, -2.5f, 2.5f, "Vertical offset of overall");
+        PlayerHealthBarRenderer.Z_OFFSET = config.getFloat("zOffset", "general", DefaultConfig.zOffset, -5f, 5f, "Depth offset of overall");
+        PlayerHealthBarRenderer.BAR_WIDTH = config.getFloat("barWidth", "general", DefaultConfig.barWidth, 1f, 100f, "Health bar width");
+        PlayerHealthBarRenderer.BAR_HEIGHT = config.getFloat("barHeight", "general", DefaultConfig.barHeight, 1f, 100f, "Health bar height");
+        PlayerHealthBarRenderer.BAR_MARGIN = config.getFloat("barMargin", "general", DefaultConfig.barMargin, 0f, 40f, "Margin between health bar and name");
+        PlayerHealthBarRenderer.BAR_ROTATION = config.getFloat("barRotation", "general", DefaultConfig.barRotation, -180f, 180f, "Health bar rotation");
+        PlayerHealthBarRenderer.BAR_X_OFFSET = config.getFloat("barXOffset", "general", DefaultConfig.barXOffset, -200f, 200f, "Horizontal offset of health bar");
+        PlayerHealthBarRenderer.BAR_Y_OFFSET = config.getFloat("barYOffset", "general", DefaultConfig.barYOffset, -100f, 100f, "Vertical offset of health bar");
+        PlayerHealthBarRenderer.BAR_Z_OFFSET = config.getFloat("barZOffset", "general", DefaultConfig.barZOffset, -200f, 200f, "Depth offset of health bar");
 
         if (config.hasChanged()) {
             config.save();
@@ -38,22 +38,22 @@ public class ConfigHandler {
     }
 
     public void save() {
-        config.get("general", "enabled", true).set(PlayerHealthBarRenderer.ENABLED);
-        config.get("general", "showSelf", false).set(PlayerHealthBarRenderer.SHOW_SELF);
-        config.get("general", "hideWhenSneaking", false).set(PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING);
-        config.get("general", "facePlayer", false).set(PlayerHealthBarRenderer.FACE_PLAYER);
-        config.get("general", "maxDistance", 24.0).set(PlayerHealthBarRenderer.MAX_DISTANCE);
-        config.get("general", "scale", 0.025).set(PlayerHealthBarRenderer.SCALE);
-        config.get("general", "xOffset", 0f).set(PlayerHealthBarRenderer.X_OFFSET);
-        config.get("general", "yOffset", 0f).set(PlayerHealthBarRenderer.Y_OFFSET);
-        config.get("general", "zOffset", 0f).set(PlayerHealthBarRenderer.Z_OFFSET);
-        config.get("general", "barWidth", 60.0).set(PlayerHealthBarRenderer.BAR_WIDTH);
-        config.get("general", "barHeight", 3.0).set(PlayerHealthBarRenderer.BAR_HEIGHT);
-        config.get("general", "barMargin", 10.0).set(PlayerHealthBarRenderer.BAR_MARGIN);
-        config.get("general", "barRotation", 0.0).set(PlayerHealthBarRenderer.BAR_ROTATION);
-        config.get("general", "barXOffset", 0.0).set(PlayerHealthBarRenderer.BAR_X_OFFSET);
-        config.get("general", "barYOffset", 0.0).set(PlayerHealthBarRenderer.BAR_Y_OFFSET);
-        config.get("general", "barZOffset", 0.0).set(PlayerHealthBarRenderer.BAR_Z_OFFSET);
+        config.get("general", "enabled", DefaultConfig.enabled).set(PlayerHealthBarRenderer.ENABLED);
+        config.get("general", "showSelf", DefaultConfig.showSelf).set(PlayerHealthBarRenderer.SHOW_SELF);
+        config.get("general", "hideWhenSneaking", DefaultConfig.hideWhenSneaking).set(PlayerHealthBarRenderer.HIDE_WHEN_SNEAKING);
+        config.get("general", "facePlayer", DefaultConfig.facePlayer).set(PlayerHealthBarRenderer.FACE_PLAYER);
+        config.get("general", "maxDistance", DefaultConfig.maxDistance).set(PlayerHealthBarRenderer.MAX_DISTANCE);
+        config.get("general", "scale", DefaultConfig.scale).set(PlayerHealthBarRenderer.SCALE);
+        config.get("general", "xOffset", DefaultConfig.xOffset).set(PlayerHealthBarRenderer.X_OFFSET);
+        config.get("general", "yOffset", DefaultConfig.yOffset).set(PlayerHealthBarRenderer.Y_OFFSET);
+        config.get("general", "zOffset", DefaultConfig.zOffset).set(PlayerHealthBarRenderer.Z_OFFSET);
+        config.get("general", "barWidth", DefaultConfig.barWidth).set(PlayerHealthBarRenderer.BAR_WIDTH);
+        config.get("general", "barHeight", DefaultConfig.barHeight).set(PlayerHealthBarRenderer.BAR_HEIGHT);
+        config.get("general", "barMargin", DefaultConfig.barMargin).set(PlayerHealthBarRenderer.BAR_MARGIN);
+        config.get("general", "barRotation", DefaultConfig.barRotation).set(PlayerHealthBarRenderer.BAR_ROTATION);
+        config.get("general", "barXOffset", DefaultConfig.barXOffset).set(PlayerHealthBarRenderer.BAR_X_OFFSET);
+        config.get("general", "barYOffset", DefaultConfig.barYOffset).set(PlayerHealthBarRenderer.BAR_Y_OFFSET);
+        config.get("general", "barZOffset", DefaultConfig.barZOffset).set(PlayerHealthBarRenderer.BAR_Z_OFFSET);
 
         config.save();
     }
