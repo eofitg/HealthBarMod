@@ -10,6 +10,7 @@ A simple Minecraft mod that displays customizable health bars around player.
 * Hide health bars when sneaking.
 * Adjustable render distance, size, scale, rotation, and offset.
 * Dynamic color: green → yellow → red.
+* Render player health text in their team color.
 
 ## Commands
 
@@ -19,7 +20,7 @@ A simple Minecraft mod that displays customizable health bars around player.
 * `self` — Show/hide your own health bar
 * `sneak` — Show/Hide when sneaking
 * `face` — Whether to keep bar always facing you
-* `team` — Whether to render text with specific team color
+* `team` — Whether to render text with team color
 * `shadow` — Whether to render text shadow
 * `distance <value>` — Set max render distance
 * `scale <value>` — Adjust overall scale
