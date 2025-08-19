@@ -1,6 +1,7 @@
 package net.eofitg.healthbarmod.commands;
 
 import net.eofitg.healthbarmod.HealthBarMod;
+import net.eofitg.healthbarmod.config.DefaultConfig;
 import net.eofitg.healthbarmod.hud.PlayerHealthBarRenderer;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -265,36 +266,41 @@ public class CommandHealthBar extends CommandBase {
         } else if (args.length == 2) {
             String sub = args[0].toLowerCase();
             switch (sub) {
-                case "toggle":
-                case "self":
-                case "sneak":
-                case "face":
-                    completions.add("true");
-                    completions.add("false");
-                    break;
                 case "distance":
-                    completions.add("24.0");
+                    completions.add(DefaultConfig.maxDistance + "");
                     break;
                 case "scale":
-                    completions.add("0.0165");
+                    completions.add(DefaultConfig.scale + "");
+                    break;
+                case "xoffset":
+                    completions.add(DefaultConfig.xOffset + "");
+                    break;
+                case "yoffset":
+                    completions.add(DefaultConfig.yOffset + "");
+                    break;
+                case "zoffset":
+                    completions.add(DefaultConfig.zOffset + "");
                     break;
                 case "barwidth":
-                    completions.add("70");
+                    completions.add(DefaultConfig.barWidth + "");
                     break;
                 case "barheight":
-                    completions.add("7");
+                    completions.add(DefaultConfig.barHeight + "");
                     break;
                 case "barmargin":
-                    completions.add("10");
+                    completions.add(DefaultConfig.barMargin + "");
                     break;
                 case "barrotation":
+                    completions.add(DefaultConfig.barRotation + "");
+                    break;
                 case "barxoffset":
+                    completions.add(DefaultConfig.barXOffset + "");
+                    break;
                 case "baryoffset":
+                    completions.add(DefaultConfig.barYOffset + "");
+                    break;
                 case "barzoffset":
-                case "xoffset":
-                case "yoffset":
-                case "zoffset":
-                    completions.add("0");
+                    completions.add(DefaultConfig.barZOffset + "");
                     break;
             }
         }
