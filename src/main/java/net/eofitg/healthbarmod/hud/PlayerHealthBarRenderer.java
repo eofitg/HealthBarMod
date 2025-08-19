@@ -5,6 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -15,6 +17,7 @@ public class PlayerHealthBarRenderer {
     public static boolean SHOW_SELF             = DefaultConfig.showSelf;               // Whether to show own health bar
     public static boolean HIDE_WHEN_SNEAKING    = DefaultConfig.hideWhenSneaking;       // Hide when sneaking
     public static boolean FACE_PLAYER           = DefaultConfig.facePlayer;             // Whether health bar is always facing player
+    public static boolean TEAM_COLOR            = DefaultConfig.teamColor;              // Whether text rendering with specific team color
     public static double  MAX_DISTANCE          = DefaultConfig.maxDistance;            // Maximum render distance (block units)
     public static float   SCALE                 = DefaultConfig.scale;                  // Overall scale (font/bar size)
     public static float   X_OFFSET              = DefaultConfig.xOffset;                // Horizontal offset (block units)
@@ -128,10 +131,22 @@ public class PlayerHealthBarRenderer {
         int textWidth = fr.getStringWidth(text);
         int tx = -textWidth / 2;
         int ty = -fr.FONT_HEIGHT;
+        int textColor = 0xFFFFFFFF;
+        ScorePlayerTeam team = (ScorePlayerTeam) p.getTeam();
+        if (team != null && TEAM_COLOR) {  // Team Color
+            EnumChatFormatting format = team.getChatFormat();
+            if (format != null && format.isColor()) {
+                int index = format.getColorIndex(); // 0 - 15
+                if (index >= 0 && index < 16) {
+                    char code = "0123456789abcdef".charAt(index);
+                    textColor = mc.fontRendererObj.getColorCode(code);
+                }
+            }
+        }
         GlStateManager.pushMatrix();
         GlStateManager.rotate(180f, 0f, 0f, 1f);
         fr.drawString(text, tx + 1, -ty + 1, 0xAA000000, false);
-        fr.drawString(text, tx, -ty, 0xFFFFFFFF, false);
+        fr.drawString(text, tx, -ty, textColor, false);
         GlStateManager.popMatrix();
 
         GlStateManager.disableBlend();

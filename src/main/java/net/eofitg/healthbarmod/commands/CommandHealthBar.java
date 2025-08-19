@@ -21,7 +21,7 @@ public class CommandHealthBar extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/healthbar toggle|self|sneak|face|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
+        return "/healthbar toggle|self|sneak|face|team|distance <value>|scale <value>|xoffset <value>|yoffset <value>|zoffset <value>|barwidth <value>|barheight <value>|barmargin <value>|barrotation <value>|barxoffset <value>|baryoffset <value>|barzoffset <value>|reload>";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CommandHealthBar extends CommandBase {
         switch (sub) {
             case "toggle": {
                 PlayerHealthBarRenderer.ENABLED = !PlayerHealthBarRenderer.ENABLED;
-                sender.addChatMessage(new ChatComponentText("§aHealth bar enabled:: " + PlayerHealthBarRenderer.ENABLED));
+                sender.addChatMessage(new ChatComponentText("§aHealth bar enabled: " + PlayerHealthBarRenderer.ENABLED));
                 HealthBarMod.configHandler.save();
                 break;
             }
@@ -59,7 +59,13 @@ public class CommandHealthBar extends CommandBase {
             }
             case "face": {
                 PlayerHealthBarRenderer.FACE_PLAYER = !PlayerHealthBarRenderer.FACE_PLAYER;
-                sender.addChatMessage(new ChatComponentText("§Always facing player: " + PlayerHealthBarRenderer.FACE_PLAYER));
+                sender.addChatMessage(new ChatComponentText("§aAlways facing player: " + PlayerHealthBarRenderer.FACE_PLAYER));
+                HealthBarMod.configHandler.save();
+                break;
+            }
+            case "team": {
+                PlayerHealthBarRenderer.TEAM_COLOR = !PlayerHealthBarRenderer.TEAM_COLOR;
+                sender.addChatMessage(new ChatComponentText("§aText team color: " + PlayerHealthBarRenderer.TEAM_COLOR));
                 HealthBarMod.configHandler.save();
                 break;
             }
@@ -246,7 +252,8 @@ public class CommandHealthBar extends CommandBase {
 
 
     private static final List<String> SUBCOMMANDS = Arrays.asList(
-            "toggle", "self", "sneak", "face", "distance", "scale",
+            "toggle", "self", "sneak", "face", "team",
+            "distance", "scale",
             "barwidth", "barheight", "barmargin", "barrotation",
             "barxoffset", "baryoffset", "barzoffset",
             "xoffset", "yoffset", "zoffset", "reload"

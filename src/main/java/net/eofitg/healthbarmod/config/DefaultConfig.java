@@ -5,6 +5,7 @@ public class DefaultConfig {
     public static final boolean showSelf = false;
     public static final boolean hideWhenSneaking = false;
     public static final boolean facePlayer = false;
+    public static final boolean teamColor = true;
     public static final float   maxDistance = 24.0F;
     public static final float   scale = 0.025F;
     public static final float   xOffset = 0f;
